@@ -625,6 +625,7 @@ def delete_jail(jail_name):
             eprint(f"A jail with name {jail_name} does not exist.")
         else:
             os.system(f"machinectl stop {jail_name}")
+            eprint(f"Stopping {jail_path}...")
             eprint(f"Cleaning up: {jail_path}")
             os.system("rm -rf %s" % jail_path)
             #   shutil.rmtree(jail_path)
