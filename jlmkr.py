@@ -621,12 +621,13 @@ def delete_jail(jail_name):
 
     check = input(f"CAUTION: Type \"{jail_name}\" to confirm! \n") or ""
     if check == jail_name:
-        if os.path.isdir(jail_path):
+        if not os.path.isdir(jail_path):
+            eprint(f"A jail with name {jail_name} does not exist.")
+        else:
             os.system(f"machinectl stop {jail_name}")
             eprint(f"Cleaning up: {jail_path}")
-            shutil.rmtree(jail_path)
-        else:
-            eprint(f"A jail with name {jail_name} does not exist.")
+            os.system("rm -rf %s" % jail_path)
+            #   shutil.rmtree(jail_path)
     else:
         eprint("Wrong name, nothing happens.")
 
